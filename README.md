@@ -55,20 +55,20 @@ This is a simple and effective way to evenly split the load between multiple hos
 
 If `request` is used for protocol, this is the protocol Rails will use when an asset URL is generated outside of a request since it won't be able to determine the protocol to use.
 
-Default: http
+Default: `http`
 
 #### protocol
 
 The protocol to prepend to the asset URL.
 
-Default: browser
+Default: `browser`
 
 Options:
 
-  - browser (Let the browser determine which protocol to use)
-  - request (Rails prepends the protocol of the current request)
-  - http (force http://)
-  - https (force https://)
+  - `browser` (Let the browser determine which protocol to use)
+  - `request` (Rails prepends the protocol of the current request)
+  - `http` (force http://)
+  - `https` (force https://)
 
 
 ## Contributing
