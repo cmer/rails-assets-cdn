@@ -1,6 +1,6 @@
 module RailsAssetsCdn
   class Railtie < ::Rails::Railtie
-    initializer "rails_assets_cdn.initialize" do
+    def initialize_railtie
       $rails_assets_cdn_initialized = false
 
       config = nil
@@ -50,6 +50,10 @@ module RailsAssetsCdn
       end
 
       $rails_assets_cdn[:initialized] = true
+    end
+
+    initializer "rails_assets_cdn.initialize" do
+      self.initialize_railtie
     end
   end
 end
