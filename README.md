@@ -33,6 +33,8 @@ And here's a more complex config file supporting multiple CDN hosts for the prod
       protocol: browser
       fallback_protocol: http
 
+Important: don't forget to restart your application!
+
 ## Configuration options:
 
 #### enabled
