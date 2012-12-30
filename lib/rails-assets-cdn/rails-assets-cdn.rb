@@ -1,6 +1,7 @@
 module RailsAssetsCdn
   class Railtie < ::Rails::Railtie
     def initialize_railtie
+      Rails.logger.info "Initializing rails-assets-cdn..."
       $rails_assets_cdn_initialized = false
 
       config = nil
@@ -38,6 +39,9 @@ module RailsAssetsCdn
         when :http;    'http://'      # Force http
         when :https;   'https://'     # Force https
       end
+
+      Rails.logger.info "  CDN hosts: #{$rails_assets_cdn[:hosts].to_sentence}."
+      Rails.logger.info "  Protocol strategy: #{$rails_assets_cdn[:protocol]} (fallback: #{$rails_assets_cdn[:fallback_protocol]})."
 
       ActionController::Base.asset_host = Proc.new do |source, request|
         protocol = if $rails_assets_cdn[:protocol]
