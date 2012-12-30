@@ -8,11 +8,16 @@ module RailsAssetsCdn
       %w(assets_cdn.yml cdn.yml).each do |filename|
         config_path = Rails.root.join('config', filename).to_s
         if File.exist?(config_path)
+          Rails.logger.info "  Reading config file at #{config_path}..."
           config = YAML.load_file(config_path)[Rails.env]
           break
         end
       end
-      return false unless config
+
+      unless config
+        Rails.logger.info "  Couldn't find configuration file. Skipping initialization."
+        return false
+      end
 
       # Set defaults
       config['enabled']           = true      if config['enabled'].nil?
@@ -22,7 +27,11 @@ module RailsAssetsCdn
       config['fallback_protocol'].sub!('://', '')
 
       # Validations
-      return false unless config['enabled']
+      unless config['enabled']
+        Rails.logger.info "  rails-assets-cdn is disabled. Bye bye!"
+        return false
+      end
+
       raise ArgumentError.new("Protocol #{config["protocol"]} is invalid.") \
         unless %w(browser request http https).include?(config['protocol'])
       raise ArgumentError.new("Fallback protocol #{config["fallback_protocol"]} is invalid.") \
