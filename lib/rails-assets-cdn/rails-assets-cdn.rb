@@ -6,10 +6,10 @@ module RailsAssetsCdn
 
       config = nil
       %w(assets_cdn.yml cdn.yml).each do |filename|
-        config_path = Rails.root.join('config', filename).to_s
+        config_path = Rails.root.join('config', filename)
         if File.exist?(config_path)
           Rails.logger.info "  Reading config file at #{config_path}..."
-          config = YAML.load_file(config_path)[Rails.env]
+          config = YAML.load(ERB.new(File.read(config_path)).result)[Rails.env]
           break
         end
       end
