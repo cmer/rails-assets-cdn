@@ -9,7 +9,7 @@ module RailsAssetsCdn
         config_path = Rails.root.join('config', filename).to_s
         if File.exist?(config_path)
           Rails.logger.info "  Reading config file at #{config_path}..."
-          config = YAML.load_file(config_path)[Rails.env]
+          config = YAML.load(ERB.new(File.new(config_path).read).result)[Rails.env]
           break
         end
       end
